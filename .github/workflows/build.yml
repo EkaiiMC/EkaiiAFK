@@ -1,0 +1,28 @@
+name: Build Jar
+on: [ push, pull_request ]
+env:
+  branch: main
+jobs:
+  build-jar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git Repository
+        uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'
+          cache: 'gradle'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure Git User Details
+        run: |
+            git config --global user.email "actions@github.com" && git config --global user.name "Github Actions"
+            echo "workflow=$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+      - name: Build Jar
+        run: ./gradlew jar --stacktrace
+      - name: Upload Jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: EkaiiAFK.jar
+          path: build/libs/EkaiiAFK-*.jar

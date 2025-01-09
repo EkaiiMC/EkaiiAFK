@@ -1,0 +1,7 @@
+name: EkaiiAFK
+version: '${version}'
+main: fr.ekaii.ekaiiafk.EkaiiAFK
+folia-supported: true
+api-version: '1.21.4'
+authors: [EkaiiMC, EllipsiaLePoulet]
+description: Fork of KaiijuMC/Kaiiafk which is working with TAB plugin
